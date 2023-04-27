@@ -1,0 +1,62 @@
+#root {
+  /* height: 100vh; */
+  /* background-image: url('../public/background.jpg');
+  background-size: cover; */
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(179, 220, 237, 1) 0%,
+    rgba(41, 184, 229, 1) 50%,
+    rgba(188, 224, 238, 1) 100%
+  );
+}
+.App {
+  text-align: center;
+  margin: 0 auto;
+  padding: 2rem;
+  max-width: 1280px;
+  /* height: 90vh; */
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.message {
+  background: orange !important;
+}
+
+.message_2 {
+  background: red !important;
+}
+
+.message_3 {
+  background: blue !important;
+}
+
+.copy_icon {
+  cursor: pointer;
+}
+
+.question_button {
+  border-radius: 50%;
+  border: 3px solid #1970b9;
+  height: 36px;
+  width: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  background: transparent;
+}
+
+.question_button:hover {
+  background: rgba(231, 245, 255, 0.35);
+}
+.icon {
+  padding-bottom: 20px;
+}
