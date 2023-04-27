@@ -1,13 +1,15 @@
 # chat_ai
 
-## 1. Install dependencies
+1. Install dependencies
 
-> npm i
+## `npm i`
 
-## 2. Insert the openAI API key inside the file App.tsx
+2. Insert the openAI API key inside the file App.tsx
 
-> const API_KEY = 'YOUR API KEY SHOULD BE HERE';
+line 32 > `const API_KEY = 'YOUR API KEY SHOULD BE HERE'`;
 
-## 3. Run the command
+3. Run the command
 
-> npm run dev
+## `npm run dev`
+
+4. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
