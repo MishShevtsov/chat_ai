@@ -20,7 +20,7 @@ import {
   faTicket,
   faQuestion,
 } from '@fortawesome/free-solid-svg-icons';
-import { Button as MantinButton } from '@mantine/core';
+import { Button as MantinButton, Text } from '@mantine/core';
 import { InfoModal } from './components/InfoModal/InfoModal';
 import { getCurrentDateFormatted } from './helpers/dateFormatter';
 import SystemContex from './components/SystemContex/SystemContex';
@@ -28,8 +28,10 @@ import SideBar from './components/SideBar/SideBar';
 import Background from './components/Background/Background';
 
 import styles from './App.module.scss';
+import ChatHeader from './components/Chat/ChatHeader';
+import Banner from './components/Banner/Banner';
 
-const API_KEY = 'YOUR API KEY SHOULD BE HERE';
+const API_KEY = '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';
 
 const systemMessage = {
   role: 'system',
@@ -47,7 +49,11 @@ function App() {
   const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState([defaultMessage]);
   const [contextMessage, setContextMessage] = useState(systemMessage);
-  const [activeUser, setActiveUser] = useState('Jon Snow');
+  const [activeUser, setActiveUser] = useState({
+    id: 1,
+    name: 'Jon Snow',
+    icon: '../../../public/avatars/jon_snow.png',
+  });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -64,7 +70,7 @@ function App() {
     const newMessage = {
       message,
       direction: 'outgoing',
-      sender: activeUser,
+      sender: activeUser.name,
     };
 
     const newMessages = [...messages, newMessage];
@@ -145,123 +151,136 @@ function App() {
     return <div style={{ fontWeight: 'bold', display: 'flex' }}>{sender}</div>;
   };
 
+  const ConversationHeaderBack2: React.FC<any> = ({ children }) => {
+    return <div>{children}</div>;
+  };
+
   return (
     <div className={styles.App}>
       <Background />
-      <div style={{ display: 'flex' }}>
-        <SideBar activeUser={activeUser} setActiveUser={setActiveUser} />
+      <div className={styles.container}>
+        <Banner />
+        <div style={{ display: 'flex' }}>
+          <SideBar activeUser={activeUser} setActiveUser={setActiveUser} />
 
-        <div style={{ position: 'relative', height: '600px', width: '700px' }}>
-          <MainContainer style={{ borderRadius: '15px' }}>
-            <ChatContainer>
-              <ConversationHeader style={{ backgroundColor: '#D8E0EA' }}>
-                <Avatar src='../public/icons/avatar.svg' name={activeUser} />
-                <ConversationHeader.Content
-                  style={{ textAlign: 'left', backgroundColor: '#D8E0EA' }}
-                  userName={activeUser}
-                />
-              </ConversationHeader>
-              <MessageList
-                scrollBehavior='auto'
-                typingIndicator={
-                  isTyping ? (
-                    <TypingIndicator content='SCRUB CHART.AI is typing' />
-                  ) : null
-                }
-              >
-                <MessageSeparator content={currentDateFormatted} />
-                {messages.map((message: any, i: number) => {
-                  return (
-                    <Message key={i} model={message}>
-                      <Message.CustomContent>
-                        {messageTitle(message.sender)}
-                        <div
-                          style={{
-                            textAlign: 'left',
-                          }}
-                        >
-                          {message.message}
-                        </div>
-                        {message.sender === 'SCRUB CHART.AI' ? (
+          <div
+            style={{ position: 'relative', height: '600px', width: '700px' }}
+          >
+            <MainContainer style={{ borderRadius: '15px' }}>
+              <ChatContainer>
+                <ConversationHeader style={{ backgroundColor: '#D8E0EA' }}>
+                  <ConversationHeader.Content>
+                    <ChatHeader activeUser={activeUser} />
+                  </ConversationHeader.Content>
+                </ConversationHeader>
+                <MessageList
+                  scrollBehavior='auto'
+                  typingIndicator={
+                    isTyping ? (
+                      <TypingIndicator content='SCRUB CHART.AI is typing' />
+                    ) : null
+                  }
+                >
+                  <MessageSeparator content={currentDateFormatted} />
+                  {messages.map((message: any, i: number) => {
+                    return (
+                      <Message key={i} model={message}>
+                        <Message.CustomContent>
+                          {messageTitle(message.sender)}
                           <div
                             style={{
-                              display: 'flex',
-                              justifyContent: 'flex-start',
-                              marginLeft: '-13px',
+                              textAlign: 'left',
                             }}
                           >
-                            <Button
-                              icon={
-                                <img
-                                  className={styles.copy_icon}
-                                  src='../public/icons/copy.svg'
-                                  alt=''
-                                  onClick={() => {
-                                    navigator.clipboard.writeText(
-                                      message.message
-                                    );
-                                  }}
-                                />
-                              }
-                            ></Button>
+                            {message.message}
                           </div>
-                        ) : null}
-                      </Message.CustomContent>
-                    </Message>
-                  );
-                })}
-              </MessageList>
-              <InputToolbox
-                style={{
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignContent: 'left',
-                }}
+                          {message.sender === 'SCRUB CHART.AI' ? (
+                            <div
+                              style={{
+                                display: 'flex',
+                                justifyContent: 'flex-start',
+                                marginLeft: '-13px',
+                              }}
+                            >
+                              <Button
+                                icon={
+                                  <img
+                                    className={styles.copy_icon}
+                                    src='../public/icons/copy.svg'
+                                    alt=''
+                                    onClick={() => {
+                                      navigator.clipboard.writeText(
+                                        message.message
+                                      );
+                                    }}
+                                  />
+                                }
+                              ></Button>
+                            </div>
+                          ) : null}
+                        </Message.CustomContent>
+                      </Message>
+                    );
+                  })}
+                </MessageList>
+                <InputToolbox
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignContent: 'left',
+                  }}
+                >
+                  <div style={{ textAlign: 'left', padding: '5px' }}>
+                    What's on your mind?
+                  </div>
+                  <MessageInput
+                    id='message'
+                    placeholder='Type message here'
+                    onSend={handleSend}
+                    attachButton={false}
+                    ref={inputRef}
+                    style={{ width: '100%', padding: '10px' }}
+                  />
+                </InputToolbox>
+              </ChatContainer>
+            </MainContainer>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-start',
+                marginTop: '20px',
+              }}
+            >
+              <button
+                className={styles.question_button}
+                onClick={(e: any) => setIsModalOpen(!isModalOpen)}
               >
-                <div style={{ textAlign: 'left', padding: '5px' }}>
-                  What's on your mind?
-                </div>
-                <MessageInput
-                  id='message'
-                  placeholder='Type message here'
-                  onSend={handleSend}
-                  attachButton={false}
-                  ref={inputRef}
-                  style={{ width: '100%', padding: '10px' }}
+                <FontAwesomeIcon
+                  icon={faQuestion}
+                  style={{ color: '#1970B9' }}
                 />
-              </InputToolbox>
-            </ChatContainer>
-          </MainContainer>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-              marginTop: '20px',
-            }}
-          >
-            <button
-              className={styles.question_button}
-              onClick={(e: any) => setIsModalOpen(!isModalOpen)}
-            >
-              <FontAwesomeIcon icon={faQuestion} style={{ color: '#1970B9' }} />
-            </button>
-            <MantinButton
-              radius='xl'
-              variant='outline'
-              style={{ borderWidth: '3px' }}
-              leftIcon={<FontAwesomeIcon icon={faArrowRotateLeft} />}
-              onClick={handleReset}
-            >
-              Reset AI
-            </MantinButton>
+              </button>
+              <MantinButton
+                radius='xl'
+                variant='outline'
+                style={{ borderWidth: '3px' }}
+                leftIcon={<FontAwesomeIcon icon={faArrowRotateLeft} />}
+                onClick={handleReset}
+              >
+                Reset AI
+              </MantinButton>
+            </div>
+            <SystemContex
+              handleContex={handleContex}
+              contextMessage={contextMessage}
+            />
           </div>
-          <SystemContex
-            handleContex={handleContex}
-            contextMessage={contextMessage}
+          <InfoModal
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
           />
         </div>
-        <InfoModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       </div>
     </div>
   );

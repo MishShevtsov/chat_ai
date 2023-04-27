@@ -10,11 +10,16 @@
     margin-bottom: 30px;
   }
   &__buttons_group {
-    width: 200px;
+    // width: 200px;
     display: flex;
     flex-direction: column;
     &__button {
       margin-bottom: 10px;
+      width: 100%;
+      text-align: left;
+      &__content {
+        justify-content: left;
+      }
     }
   }
 }

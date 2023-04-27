@@ -2,7 +2,7 @@
   /* height: 100vh; */
   /* background-image: url('../public/background.jpg');
   background-size: cover; */
-  width: 100%;
+  // width: 100%;
   background-image: linear-gradient(
     to right,
     rgba(179, 220, 237, 1) 0%,
@@ -14,7 +14,8 @@
   text-align: center;
   margin: 0 auto;
   padding: 2rem;
-  max-width: 1280px;
+  // width: 100vw;
+  // max-width: 1280px;
   /* height: 90vh; */
 }
 
@@ -24,18 +25,6 @@
 
 .read-the-docs {
   color: #888;
-}
-
-.message {
-  background: orange !important;
-}
-
-.message_2 {
-  background: red !important;
-}
-
-.message_3 {
-  background: blue !important;
 }
 
 .copy_icon {
@@ -59,4 +48,11 @@
 }
 .icon {
   padding-bottom: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  width: 80vw;
 }
