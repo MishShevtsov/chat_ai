@@ -31,7 +31,7 @@ import styles from './App.module.scss';
 import ChatHeader from './components/Chat/ChatHeader';
 import Banner from './components/Banner/Banner';
 
-const API_KEY = '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';
+const API_KEY = 'YOUR API KEY SHOULD BE HERE';
 
 const systemMessage = {
   role: 'system',
